@@ -1,0 +1,53 @@
+* {
+  transition: 1s;
+}
+
+.card:hover {
+  transform: scale(1.7);
+  z-index: 13;
+  transition: transform 0.3s ease-in-out;
+}
+
+.dollar-color {
+  color: #008000;
+}
+
+.centered-heading {
+  text-align: center;
+  color: #4f81f3;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.card img {
+  max-height: 90%;
+  max-width: 90%;
+  margin: 5px;
+}
+
+ul button {
+  width: 440px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 1s forwards;
+}
+
+.fadeOut {
+  animation: fadeIn 1s ease-in-out reverse forwards;
+}
