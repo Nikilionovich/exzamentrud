@@ -1,6 +1,23 @@
 {
-    "alex": {
-        "statuscode": "admin",
-        "repositories": []
-    }
+  "alex": {
+    "statuscode": "admin",
+    "email": "awdsdasd@tut.by",
+    "password": 123,
+    "repositories": []
+  },
+  "sokolct49": {
+    "email": "Fijo2@tut.by",
+    "password": "270908Vlad",
+    "repositories": []
+  },
+  "awd": {
+    "email": "awdasd@tut.by",
+    "password": "asdwasd",
+    "repositories": []
+  },
+  "bjvjhv": {
+    "email": "vfghjdfc@tut.by",
+    "password": "270908Vlad",
+    "repositories": []
+  }
 }

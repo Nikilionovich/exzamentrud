@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="dark" data-dark-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-body: #010409;
+      --bg-canvas: #0d1117;
+      --border-color: #30363d;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-green: #56d364;
+      --text-blue: #58a6ff;
+      --btn-primary-bg: #238636;
+      --btn-primary-hover: #2ea043;
+      --header-bg: rgba(13, 17, 23, 0.7);
+      --card-bg: #0d1117;
+      --nav-item-hover: #30363d;
+      --nav-item-active: #1f6feb;
+      --dropdown-bg: #161b22;
+      --shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: var(--header-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0 16px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .logo svg {
+      fill: currentColor;
+      width: 24px;
+      height: 24px;
+    }
+
+    .tabs {
+      display: flex;
+      list-style: none;
+      margin: 0 24px;
+    }
+
+    .tab {
+      padding: 6px 12px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 6px;
+      margin-right: 4px;
+    }
+
+    .tab:hover {
+      background: var(--nav-item-hover);
+      color: var(--text-primary);
+    }
+
+    .tab.active {
+      background: var(--nav-item-active);
+      color: white;
+    }
+
+    /* Dropdown for "Your stuff" */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .dropdown-toggle:hover {
+      background: var(--nav-item-hover);
+      color: var(--text-primary);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--dropdown-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      box-shadow: var(--shadow);
+      list-style: none;
+      min-width: 200px;
+      z-index: 101;
+      display: none;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-item {
+      padding: 8px 16px;
+      font-size: 14px;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dropdown-item:hover {
+      background: var(--nav-item-hover);
+    }
+
+    .dropdown-item i {
+      width: 16px;
+      text-align: center;
+    }
+
+    /* Right actions */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .search-btn {
+      background: none;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 6px 12px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .search-btn:hover {
+      background: var(--nav-item-hover);
+      color: var(--text-primary);
+    }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #58a6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 12px;
+      color: #010409;
+      text-decoration: none;
+    }
+
+    /* Main */
+    .main {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    /* Feed */
+    .feed {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 24px;
+    }
+
+    .feed-main {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .card-header {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Activity */
+    .activity-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .activity-item:last-child {
+      border-bottom: 0;
+    }
+
+    .activity-content {
+      display: flex;
+      gap: 12px;
+    }
+
+    .activity-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #58a6ff;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 12px;
+      color: #010409;
+    }
+
+    .activity-body {
+      flex: 1;
+      font-size: 14px;
+    }
+
+    .activity-user {
+      color: var(--text-blue);
+      font-weight: 600;
+    }
+
+    .activity-time {
+      color: var(--text-secondary);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    /* Repos in sidebar */
+    .sidebar-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .view-all {
+      font-size: 12px;
+      color: var(--text-blue);
+      text-decoration: none;
+    }
+
+    .view-all:hover {
+      text-decoration: underline;
+    }
+
+    .repo-list {
+      list-style: none;
+    }
+
+    .repo-item {
+      padding: 8px 0;
+      font-size: 14px;
+    }
+
+    .repo-link {
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .repo-link:hover {
+      text-decoration: underline;
+    }
+
+    .repo-lang {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+
+    .lang-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    /* News */
+    .news-item {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 14px;
+    }
+
+    .news-item:last-child {
+      border-bottom: 0;
+    }
+
+    .news-link {
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .news-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <a href="/" class="logo">
+          <svg viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+          </svg>
+          GitHub
+        </a>
+
+        <ul class="tabs">
+          <li><a href="#" class="tab active">Home</a></li>
+          <li><a href="#" class="tab">Repositories</a></li>
+          <li><a href="#" class="tab">Projects</a></li>
+        </ul>
+
+        <div class="header-actions">
+          <!-- Your stuff dropdown -->
+          <div class="dropdown">
+            <a class="dropdown-toggle">
+              <i class="fas fa-ellipsis"></i>
+              <span class="desktop-only">Your stuff</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/repositories" class="dropdown-item"><i class="fas fa-code-branch"></i> Your repositories</a></li>
+              <li><a href="#" class="dropdown-item"><i class="fas fa-project-diagram"></i> Projects</a></li>
+              <li><a href="#" class="dropdown-item"><i class="fas fa-star"></i> Stars</a></li>
+              <li><a href="#" class="dropdown-item"><i class="fas fa-user"></i> Profile</a></li>
+            </ul>
+          </div>
+
+          <button class="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+          <a href="#" class="avatar">AS</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="main">
+      <div class="page-header">
+        <h1 class="page-title">Dashboard</h1>
+        <a href="/repositories/new" class="btn">
+          <i class="fas fa-plus"></i> New repository
+        </a>
+      </div>
+
+      <div class="feed">
+        <!-- Left: Activity -->
+        <div class="feed-main">
+          <div class="card">
+            <div class="card-header">
+              <span>Recent activity</span>
+            </div>
+            <div class="activity-item">
+              <div class="activity-content">
+                <div class="activity-avatar">AS</div>
+                <div class="activity-body">
+                  <div>
+                    <span class="activity-user">you</span> pushed to <strong>main</strong> at 
+                    <a href="/alexsmith/portfolio" class="repo-link">alexsmith/portfolio</a>
+                  </div>
+                  <div class="activity-time">2 hours ago</div>
+                </div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-content">
+                <div class="activity-avatar">MD</div>
+                <div class="activity-body">
+                  <div>
+                    <span class="activity-user">maria_dev</span> opened issue 
+                    <strong>#42</strong> in 
+                    <a href="/team/backend-api" class="repo-link">team/backend-api</a>
+                  </div>
+                  <div class="activity-time">5 hours ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Repos + News -->
+        <div class="feed-sidebar">
+          <!-- Your repositories -->
+          <div class="sidebar-card">
+            <div class="sidebar-title">
+              <span>Your repositories</span>
+              <a href="/repositories" class="view-all">View all</a>
+            </div>
+            <ul class="repo-list">
+              <li class="repo-item">
+                <a href="/alexsmith/portfolio" class="repo-link">
+                  <span>portfolio</span>
+                  <span class="repo-lang">
+                    <span class="lang-dot" style="background:#f1e05a"></span> JS
+                  </span>
+                </a>
+              </li>
+              <li class="repo-item">
+                <a href="/alexsmith/react-starter" class="repo-link">
+                  <span>react-starter</span>
+                  <span class="repo-lang">
+                    <span class="lang-dot" style="background:#2b7489"></span> TS
+                  </span>
+                </a>
+              </li>
+              <li class="repo-item">
+                <a href="/alexsmith/node-api" class="repo-link">
+                  <span>node-api</span>
+                  <span class="repo-lang">
+                    <span class="lang-dot" style="background:#339933"></span> JS
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tips -->
+          <div class="sidebar-card">
+            <h3 class="sidebar-title">GitHub Tips</h3>
+            <div class="news-item">
+              <a href="#" class="news-link">Use GitHub Codespaces for cloud development</a>
+            </div>
+            <div class="news-item">
+              <a href="#" class="news-link">Try the new pull request experience</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

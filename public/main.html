@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="dark" data-dark-theme="dark_dimmed">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub: Where the world builds software</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      /* Светлая тема (по умолчанию) */
+      --bg-color: #ffffff;
+      --header-bg: #ffffff;
+      --text-color: #24292e;
+      --text-secondary: #586069;
+      --border-color: #e1e4e8;
+      --input-bg: #f6f8fa;
+      --input-border: #e1e4e8;
+      --btn-outline-bg: transparent;
+      --btn-outline-hover: #f6f8fa;
+      --footer-bg: #f6f8fa;
+      --feature-icon: #6a737d;
+    }
+
+    [data-dark-theme="dark_dimmed"] {
+      /* Тёмная тема (GitHub Dark Dimmed) */
+      --bg-color: #0d1117;
+      --header-bg: #161b22;
+      --text-color: #c9d1d9;
+      --text-secondary: #8b949e;
+      --border-color: #30363d;
+      --input-bg: #0d1117;
+      --input-border: #30363d;
+      --btn-outline-bg: transparent;
+      --btn-outline-hover: #30363d;
+      --footer-bg: #0d1117;
+      --feature-icon: #8b949e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      line-height: 1.5;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo svg {
+      fill: var(--text-color);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: #58a6ff; /* GitHub blue in dark mode */
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 16px;
+    }
+
+    .btn {
+      padding: 6px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 6px;
+      border: 1px solid rgba(240,246,252,0.1);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      background: var(--btn-outline-bg);
+      color: var(--text-color);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--btn-outline-hover);
+    }
+
+    .btn-primary {
+      color: #fff;
+      background-color: #238636; /* GitHub green (dark mode) */
+      border-color: transparent;
+    }
+
+    .btn-primary:hover {
+      background-color: #2ea043;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 96px 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+      color: var(--text-color);
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .input-group {
+      display: flex;
+      max-width: 540px;
+      width: 100%;
+    }
+
+    .input-group input {
+      flex: 1;
+      padding: 14px 16px;
+      font-size: 16px;
+      border: 1px solid var(--input-border);
+      border-radius: 6px 0 0 6px;
+      outline: none;
+      background: var(--input-bg);
+      color: var(--text-color);
+    }
+
+    .input-group input:focus {
+      border-color: #58a6ff;
+      box-shadow: inset 0 0 0 1px #58a6ff;
+    }
+
+    .input-group button {
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: 500;
+      border: 1px solid rgba(240,246,252,0.1);
+      border-radius: 0 6px 6px 0;
+      background: #21262d; /* dark input bg */
+      color: var(--text-color);
+      cursor: pointer;
+    }
+
+    .input-group button:hover {
+      background: #30363d;
+    }
+
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      margin-top: 64px;
+    }
+
+    .feature {
+      max-width: 300px;
+      text-align: center;
+    }
+
+    .feature h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 24px 0 12px;
+      color: var(--text-color);
+    }
+
+    .feature p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .feature i {
+      color: var(--feature-icon);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--footer-bg);
+      padding: 64px 32px 32px;
+      margin-top: 120px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      max-width: 1000px;
+      margin: 0 auto;
+      gap: 32px;
+    }
+
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text-color);
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col li {
+      margin-bottom: 8px;
+    }
+
+    .footer-col a {
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-col a:hover {
+      text-decoration: underline;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 48px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-color);
+      margin-top: 32px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: 16px;
+    }
+    .theme-toggle:hover {
+      color: var(--text-color);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <a href="/" class="logo">
+      <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32">
+        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+      </svg>
+      GitHub
+    </a>
+
+    <nav class="nav-links">
+      <a href="#">Team</a>
+      <a href="#">Enterprise</a>
+      <a href="#">Explore</a>
+      <a href="#">Marketplace</a>
+      <a href="#">Pricing</a>
+    </nav>
+
+    <div style="display:flex;align-items:center">
+      <div class="auth-buttons">
+        <a href="/authorization/sign-in" class="btn btn-outline">Sign in</a>
+        <a href="/authorization/reg-new-user" class="btn btn-primary">Sign up</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main class="hero">
+    <h1>Where the world builds software</h1>
+    <p>Millions of developers and companies build, ship, and maintain their software on GitHub — the largest and most advanced development platform in the world.</p>
+
+
+    <div class="features">
+      <div class="feature">
+        <i class="fas fa-code fa-3x"></i>
+        <h3>Build</h3>
+        <p>Collaborate, review code, and ship software with confidence.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-cogs fa-3x"></i>
+        <h3>Automate</h3>
+        <p>Automate your workflow with GitHub Actions and CI/CD.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-shield-alt fa-3x"></i>
+        <h3>Secure</h3>
+        <p>Protect your code and dependencies proactively.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">Team</a></li>
+          <li><a href="#">Enterprise</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="#">Developer API</a></li>
+          <li><a href="#">Partners</a></li>
+          <li><a href="#">Atom</a></li>
+          <li><a href="#">Electron</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">Status</a></li>
+          <li><a href="#">Training</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="copyright">
+      &copy; 2025 GitHub, Inc. Terms · Privacy · Cookies
+    </div>
+  </footer>
+</body>
+</html>
