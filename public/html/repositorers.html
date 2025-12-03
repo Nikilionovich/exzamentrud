@@ -1,334 +1,527 @@
 <!DOCTYPE html>
-<html lang="en" data-color-mode="dark" data-dark-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nikilionovich / Repositories · GitHub</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    :root {
-      --bg-body: #0d1117;
-      --bg-canvas: #010409;
-      --border-color: #30363d;
-      --text-primary: #e6edf3;
-      --text-secondary: #8b949e;
-      --text-green: #56d364;
-      --text-blue: #58a6ff;
-      --header-bg: #0d1117;
-      --card-bg: #0d1117;
-      --tab-active-border: #f78166;
-      --label-private-bg: rgba(88, 96, 105, 0.15);
-      --label-fork-bg: rgba(139, 148, 158, 0.1);
-      --lang-cpp: #f34b7d;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikilionovich — GitHub Profile</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        :root {
+            --bg-primary: #0d0d0d;
+            --bg-secondary: #161616;
+            --bg-tertiary: #212121;
+            --text-primary: #e6e6e6;
+            --text-secondary: #999999;
+            --text-accent: #58a6ff;
+            --border-color: #333333;
+            --accent-green: #2ea44f;
+            --accent-green-hover: #2c974b;
+            --language-html: #e34c26;
+            --language-js: #f1e05a;
+            --activity-graph: #8cc84b;
+            --nav-active-border: #e34c26;
+            --hover-bg: rgba(255, 255, 255, 0.03);
+            --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+        }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      background-color: var(--bg-body);
-      color: var(--text-primary);
-      line-height: 1.5;
-    }
+        /* Custom theme overrides */
+        .bg-github-primary { background-color: var(--bg-primary) !important; }
+        .bg-github-secondary { background-color: var(--bg-secondary) !important; }
+        .bg-github-tertiary { background-color: var(--bg-tertiary) !important; }
+        .text-github-accent { color: var(--text-accent) !important; }
+        .text-github-secondary { color: var(--text-secondary) !important; }
+        .border-github { border-color: var(--border-color) !important; }
 
-    a {
-      text-decoration: none;
-      color: var(--text-blue);
-    }
+        /* Header & Nav */
+        .github-header,
+        .github-nav {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+        }
 
-    a:hover {
-      text-decoration: underline;
-    }
+        .logo {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(45deg, #58a6ff, #3acfd5);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: white;
+            box-shadow: 0 0 12px rgba(88, 166, 255, 0.4);
+        }
 
-    .container {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 16px;
-    }
+        .search-bar {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 16px;
+            min-width: 280px;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
 
-    /* Header */
-    .header {
-      background: var(--header-bg);
-      border-bottom: 1px solid var(--border-color);
-      height: 60px;
-      display: flex;
-      align-items: center;
-    }
+        .search-bar:hover,
+        .search-bar:focus-within {
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 1px #58a6ff, inset 0 0 0 1px rgba(88, 166, 255, 0.1);
+        }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
+        .search-input {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 14px;
+            outline: none;
+            flex: 1;
+            font-weight: 500;
+        }
 
-    .logo svg {
-      fill: currentColor;
-      width: 24px;
-      height: 24px;
-    }
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: var(--transition);
+        }
 
-    /* Profile header */
-    .profile-header {
-      padding: 32px 0 24px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+        .icon-btn:hover {
+            background-color: var(--hover-bg);
+            color: var(--text-accent);
+            transform: translateY(-1px);
+        }
 
-    .avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: #58a6ff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 22px;
-      color: #010409;
-    }
+        /* Nav underline style */
+        .github-nav .nav-link {
+            position: relative;
+            color: var(--text-secondary) !important;
+            font-weight: 500;
+            padding: 16px 0 !important;
+            margin-right: 28px;
+            white-space: nowrap;
+        }
 
-    .profile-info h1 {
-      font-size: 26px;
-      font-weight: 300;
-      margin-bottom: 4px;
-    }
+        .github-nav .nav-link:hover,
+        .github-nav .nav-link.active {
+            color: var(--text-accent) !important;
+        }
 
-    .profile-meta {
-      display: flex;
-      gap: 16px;
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
+        .github-nav .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--nav-active-border);
+            border-radius: 2px;
+        }
 
-    /* Tabs */
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 24px;
-    }
+        .nav-count {
+            background-color: #58a6ff;
+            color: #0d0d0d;
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 6px;
+        }
 
-    .tab {
-      padding: 16px 24px;
-      font-size: 16px;
-      color: var(--text-secondary);
-      position: relative;
-    }
+        /* Avatar */
+        .avatar-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            transition: var(--transition);
+        }
 
-    .tab:hover {
-      color: var(--text-primary);
-    }
+        .avatar-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        }
 
-    .tab.active {
-      color: var(--text-primary);
-    }
+        .avatar-image {
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(135deg, #8cc84b, #6bbf3b);
+            clip-path: polygon(
+                0% 0%, 33% 0%, 33% 33%, 66% 33%, 66% 0%, 100% 0%,
+                100% 100%, 66% 100%, 66% 66%, 33% 66%, 33% 100%, 0% 100%
+            );
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
 
-    .tab.active::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--tab-active-border);
-    }
+        .avatar-container:hover .avatar-image {
+            transform: scale(1.05);
+        }
 
-    /* Filters */
-    .filters {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
+        .avatar-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: var(--text-accent);
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
 
-    .filter-btn {
-      padding: 6px 12px;
-      font-size: 14px;
-      background: transparent;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      color: var(--text-primary);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+        .avatar-badge:hover {
+            background-color: var(--hover-bg);
+            transform: scale(1.1) rotate(10deg);
+        }
 
-    .filter-btn:hover {
-      background: #30363d;
-    }
+        /* Repo cards */
+        .repo-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            padding: 1.5rem;
+        }
 
-    .filter-btn i {
-      font-size: 12px;
-    }
+        .repo-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border-color: rgba(88, 166, 255, 0.2);
+        }
 
-    .btn-primary {
-      background: #238636;
-      border-color: transparent;
-      color: white;
-    }
+        .repo-name {
+            color: var(--text-accent);
+            font-weight: 600;
+            font-size: 1.125rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
 
-    .btn-primary:hover {
-      background: #2ea043;
-    }
+        .repo-name:hover {
+            color: #7bdaff !important;
+            text-decoration: underline;
+            transform: translateX(2px);
+        }
 
-    /* Repo list */
-    .repo-list {
-      list-style: none;
-    }
+        .repo-status {
+            background-color: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
 
-    .repo-item {
-      padding: 16px 0;
-      border-bottom: 1px solid var(--border-color);
-    }
+        .language-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-    .repo-item:last-child {
-      border-bottom: 0;
-    }
+        .language-html { background-color: var(--language-html); }
+        .language-js { background-color: var(--language-js); }
 
-    .repo-title {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 4px;
-    }
+        .btn-star {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
 
-    .repo-name {
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
+        .btn-star:hover {
+            background-color: var(--hover-bg);
+            border-color: #58a6ff;
+            color: var(--text-accent);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(88, 166, 255, 0.1);
+        }
 
-    .repo-label {
-      font-size: 12px;
-      padding: 2px 8px;
-      border-radius: 6px;
-    }
+        .activity-graph {
+            height: 8px;
+            background-color: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
 
-    .private-label {
-      background: var(--label-private-bg);
-      color: var(--text-secondary);
-    }
+        .activity-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--activity-graph), #6bbf3b);
+            width: 80%;
+            border-radius: 4px;
+            transition: width 0.4s ease-out;
+        }
 
-    .fork-label {
-      background: var(--label-fork-bg);
-      color: var(--text-secondary);
-    }
+        .repo-card:hover .activity-bar {
+            width: 95%;
+        }
 
-    .repo-desc {
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-    }
+        .btn-new {
+            background: linear-gradient(135deg, var(--accent-green), #2c974b);
+            border: none;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(46, 164, 79, 0.3);
+        }
 
-    .repo-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
+        .btn-new:hover {
+            background: linear-gradient(135deg, #2c974b, #2a8d46);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(46, 164, 79, 0.4);
+        }
 
-    .repo-lang {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+        /* Scrollbar for nav */
+        .github-nav {
+            scrollbar-width: thin;
+            scrollbar-color: var(--border-color) var(--bg-secondary);
+        }
 
-    .lang-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
+        .github-nav::-webkit-scrollbar {
+            height: 6px;
+        }
 
-    .repo-stats {
-      display: flex;
-      gap: 12px;
-    }
-  </style>
+        .github-nav::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        .github-nav::-webkit-scrollbar-thumb {
+            background-color: var(--border-color);
+            border-radius: 3px;
+        }
+    </style>
 </head>
-<body>
-  <!-- Header -->
-  <header class="header">
-    <div class="container">
-      <a href="/" class="logo">
-        <svg viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-        </svg>
-        GitHub
-      </a>
-    </div>
-  </header>
+<body class="bg-github-primary">
+    <!-- Header -->
+    <header class="github-header py-3">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="logo">G</div>
+                    <span class="fw-bold fs-5">Nikilionovich</span>
+                </div>
 
-  <!-- Profile -->
-  <div class="container">
-    <div class="profile-header">
-      <div class="avatar">NI</div>
-      <div>
-        <h1>Nikilionovich</h1>
-        <div class="profile-meta">
-          <div>5 repositories</div>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="search-bar d-flex align-items-center">
+                        <span class="text-github-secondary me-2">🔍</span>
+                        <input type="text" class="search-input bg-transparent w-100" placeholder="Type / to search">
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button class="icon-btn">+</button>
+                        <button class="icon-btn">○</button>
+                        <button class="icon-btn">≡</button>
+                        <button class="icon-btn">✉️</button>
+                        <button class="icon-btn rounded-circle p-1" style="background-color: var(--accent-green);">
+                            <span class="text-white fs-5">+</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
+    </header>
 
-    <!-- Tabs -->
-    <nav class="tabs">
-      <a href="/Nikilionovich" class="tab">Overview</a>
-      <a href="/Nikilionovich?tab=repositories" class="tab active">Repositories</a>
-      <a href="#" class="tab">Projects</a>
-      <a href="#" class="tab">Packages</a>
-      <a href="#" class="tab">Stars</a>
+    <!-- Navigation -->
+    <nav class="github-nav overflow-x-auto">
+        <div class="container-fluid">
+            <ul class="nav nav-underline border-0">
+                <li class="nav-item">
+                    <a class="nav-link px-0 d-flex align-items-center gap-1" href="#">
+                        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.27-.13-.53-.27-.75-2.09-2.24-2.55-5.7-1.12-8.24C5.55 5.8 6.75 4.5 8 4.5c1.25 0 2.45 1.3 3.47 2.54 1.43 2.54 1 6-1.12 8.24-.27.22-.42.48-.42.75 0 .21.15.45.55.38 3.18-1.06 5.47-4.05 5.47-7.59S12.42 0 8 0z"></path></svg>
+                        Overview
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-0 d-flex align-items-center gap-1 active" href="#">
+                        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M7 5H5V4h2v1zm0 3H5V7h2v1zm0 3H5V10h2v1zm1 3H7V5h1v9zM9 5h2v1H9V5zm0 3h2v1H9V7zm0 3h2v1H9V10zm1 3h-1V5h1v9zM12 5h2v1h-2V5zm0 3h2v1h-2V7zm0 3h2v1h-2V10zm1 3h-1V5h1v9z"></path></svg>
+                        Repositories <span class="nav-count">24</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-0 d-flex align-items-center gap-1" href="#">
+                        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M15 14v1H1V0h14v14zM6 3H4v10h2V3zm4 0h-2v10h2V3zm4 0h-2v10h2V3zm1 3h-1V5h1v9z"></path></svg>
+                        Projects
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-0 d-flex align-items-center gap-1" href="#">
+                        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M11 11.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path><path d="M14 0H2C.9 0 0 .9 0 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2zm0 14H2V2h12v12z"></path></svg>
+                        Packages
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-0 d-flex align-items-center gap-1" href="#">
+                        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M14 14.25H2V1.75h12v12.5zM12.5 12.75H3.5V3.25h9v9.5z"></path><path d="M8 7.25c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"></path></svg>
+                        Stars
+                    </a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
-    <!-- Filters -->
-    <div class="filters">
-      <button class="filter-btn">
-        <span>Type:</span> <strong>All</strong> <i class="fas fa-caret-down"></i>
-      </button>
-      <button class="filter-btn">
-        <span>Sort:</span> <strong>Recently updated</strong> <i class="fas fa-caret-down"></i>
-      </button>
-      <button class="filter-btn btn-primary">
-        <i class="fas fa-plus"></i> New
-      </button>
-    </div>
+    <!-- Main Content -->
+    <main class="container-fluid py-4">
+        <div class="row g-4">
+            <!-- Sidebar -->
+            <aside class="col-lg-3 col-md-4">
+                <div class="bg-github-secondary rounded-3 p-4 text-center">
+                    <div class="position-relative d-inline-block">
+                        <div class="avatar-container">
+                            <div class="avatar-image"></div>
+                            <div class="avatar-badge">😊</div>
+                        </div>
+                    </div>
+                    <h2 class="h5 fw-bold mt-4 mb-3">Nikilionovich</h2>
+                    <button class="btn btn-outline-light w-100 py-2 rounded-2 fw-medium">
+                        Edit profile
+                    </button>
+                </div>
+            </aside>
 
-    <!-- Repositories -->
-    <ul class="repo-list">
-      <li class="repo-item">
-        <div class="repo-title">
-          <a href="/Nikilionovich/awesome-cpp" class="repo-name">awesome-cpp</a>
-          <span class="repo-label private-label">Private</span>
-          <span class="repo-label fork-label">Forked from fffaraz/awesome-cpp</span>
+            <!-- Content -->
+            <section class="col-lg-9 col-md-8">
+                <!-- Repo Controls -->
+                <div class="bg-github-secondary rounded-3 p-3 mb-4">
+                    <div class="d-flex flex-wrap gap-2 align-items-center">
+                        <input type="text" class="form-control search-repo flex-grow-1" placeholder="Find a repository...">
+                        <button class="btn btn-outline-light filter-btn">
+                            Type <span class="ms-1">▼</span>
+                        </button>
+                        <button class="btn btn-outline-light filter-btn">
+                            Language <span class="ms-1">▼</span>
+                        </button>
+                        <button class="btn btn-outline-light filter-btn">
+                            Sort <span class="ms-1">▼</span>
+                        </button>
+                        <button class="btn btn-new text-white px-3">
+                            ➕ New
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Repo List -->
+                <div class="row g-4">
+                    <!-- Repo Template (repeat as needed) -->
+                    <div class="col-12">
+                        <div class="repo-card">
+                            <div class="d-flex flex-column flex-lg-row justify-content-between gap-3">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <a href="#" class="repo-name">exzamentrud</a>
+                                        <span class="repo-status">Public</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-4 text-github-secondary">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="language-dot language-html"></div>
+                                            <span>HTML</span>
+                                        </div>
+                                        <span>Updated 53 minutes ago</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column align-items-end">
+                                    <button class="btn-star d-flex align-items-center gap-2">
+                                        <span>☆</span> Star <span class="ms-1">▼</span>
+                                    </button>
+                                    <div class="activity-graph mt-3 w-100">
+                                        <div class="activity-bar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Repeat for other repos (copy the above .col-12 block) -->
+                    <div class="col-12">
+                        <div class="repo-card">
+                            <div class="d-flex flex-column flex-lg-row justify-content-between gap-3">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <a href="#" class="repo-name">dx-express</a>
+                                        <span class="repo-status">Public</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-4 text-github-secondary">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="language-dot language-html"></div>
+                                            <span>HTML</span>
+                                        </div>
+                                        <span>Updated 4 days ago</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column align-items-end">
+                                    <button class="btn-star d-flex align-items-center gap-2">
+                                        <span>☆</span> Star <span class="ms-1">▼</span>
+                                    </button>
+                                    <div class="activity-graph mt-3 w-100">
+                                        <div class="activity-bar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="repo-card">
+                            <div class="d-flex flex-column flex-lg-row justify-content-between gap-3">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <a href="#" class="repo-name">dalee11-10</a>
+                                        <span class="repo-status">Public</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-4 text-github-secondary">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="language-dot language-js"></div>
+                                            <span>JavaScript</span>
+                                        </div>
+                                        <span>Updated 2 weeks ago</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column align-items-end">
+                                    <button class="btn-star d-flex align-items-center gap-2">
+                                        <span>☆</span> Star <span class="ms-1">▼</span>
+                                    </button>
+                                    <div class="activity-graph mt-3 w-100">
+                                        <div class="activity-bar" style="width: 60%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div class="repo-desc">
-          A curated list of awesome C++ (or C) frameworks, libraries, resources, and shiny things. Inspired by awesome-... stuff.
-        </div>
-        <div class="repo-meta">
-          <div class="repo-lang">
-            <span class="lang-dot" style="background:var(--lang-cpp)"></span>
-            C++
-          </div>
-          <div class="repo-stats">
-            <span>MIT License</span>
-            <span>Updated Jun 30, 2024</span>
-          </div>
-        </div>
-      </li>
-      <!-- Пустые пункты (как на GitHub: 5 репозиториев, 1 заполнен) -->
-      <li class="repo-item" style="height: 60px;"></li>
-      <li class="repo-item" style="height: 60px;"></li>
-      <li class="repo-item" style="height: 60px;"></li>
-      <li class="repo-item" style="height: 60px;"></li>
-    </ul>
-  </div>
+    </main>
 </body>
 </html>

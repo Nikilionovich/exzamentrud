@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+const {sendmesspass}=require("../modules/workemail");
 const PATH_USER=path.join(__dirname,"json","users.json");
 let arrusers = {
   ...JSON.parse(fs.readFileSync(path.join(__dirname, "json", "users.json"), "utf-8"))
@@ -30,7 +31,7 @@ const checkpassword=(myuser,username,password)=>{
 const checksigin=(username,password)=>{
   let myuser;
 if (username.includes("@"))  myuser=finduserbyemail(username);
-  else  myuser=getrepositories(username);
+  else  myuser=finduser(username);
 if (checkpassword(myuser,username,password)) return true;
 else return false;
 }
@@ -52,4 +53,9 @@ else return false;
     }
     fs.writeFileSync(PATH_USER,JSON.stringify(arrusers,null,2));
   }
-module.exports = { getrepositories: finduser, adduser,checkpassword,checksigin };
+const alreadysendmail=(user)=>{
+ const {username}=user;
+ sendmesspass({to:username});
+
+}
+module.exports = { finduser, adduser,checkpassword,checksigin,alreadysendmail };
